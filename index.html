@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="default.css">
+</head>
+<body>
+    <div id="abs">
+        <input type="range" name="" id="range" min="0" value="0">
+        <div id="bg"></div>
+    </div>
+
+    <script>
+        var max =abs.clientWidth;
+        range.setAttribute('max', max);
+        range.onchange = function () {
+            if (this.value >= max) {
+                range.setAttribute('disabled', true);
+            } else {
+                reduce(this.value);
+            }
+        };
+        function oninp(val) {
+            if (val > 10) {
+                bg.style.cssText = 'width:'+ (val - 2) +'px';
+                range.classList.add('move');
+            } else {
+                bg.style.cssText = 'width:'+ val*2 +'px';
+                range.classList.remove('move');
+            }
+        }
+        range.oninput = function () {
+            oninp(this.value);
+        };
+        function reduce (n) {
+            if (n < 1) {
+                return;
+            }
+            requestAnimationFrame(function() {
+                n-=20;
+                range.value = n;
+                oninp(n);
+                reduce(n);
+            });
+        }
+    </script>
+</body>
+</html>
